@@ -28,7 +28,7 @@ like [web-ext](https://github.com/mozilla/web-ext) and [eslint](https://github.c
 
 ## building
 
-Buliding on Windows should be as simple as:
+Building on Windows should be as simple as:
 
 ````
 git clone https://github.com/josteink/makecrx-sharp
