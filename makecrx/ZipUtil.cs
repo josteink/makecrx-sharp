@@ -12,6 +12,12 @@ namespace makecrx
     {
         public static void Zip(DirectoryInfo sourceDirectoryInfo, string zipFileName)
         {
+            // always create new file.
+            if (File.Exists(zipFileName))
+            {
+                File.Delete(zipFileName);
+            }
+
             using (var zipFile = new ZipFile(zipFileName))
             {
                 zipFile.AddDirectory(sourceDirectoryInfo.FullName);
