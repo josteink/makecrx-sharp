@@ -15,9 +15,8 @@ namespace makecrx
             var magic = GetMagic();
             var version = GetVersion();
             var publicKey = rsaUtil.GetPublicKey();
-            // TODO: GetSignature();
-            var signature = new byte[0];
             var zipFile = File.ReadAllBytes(zipFileName);
+            var signature = rsaUtil.GetSignature(zipFile);
 
             // write file
             using (var fs = File.OpenWrite(targetPath))

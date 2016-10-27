@@ -31,7 +31,7 @@ namespace makecrx
             gen.Init(keyGenParam);
 
             this.keyPair = gen.GenerateKeyPair();
-            var privateKey = GetPrivateKey();
+            var privateKey = (RsaPrivateCrtKeyParameters)keyPair.Private;
 
             using (var fileStream = File.OpenWrite(this.KeyFile))
             using (var textWriter = new StreamWriter(fileStream))
@@ -59,10 +59,14 @@ namespace makecrx
             return serializedPublicBytes;
         }
 
-        private RsaPrivateCrtKeyParameters GetPrivateKey()
+        public byte[] GetSignature(byte[] data)
         {
-            return (RsaPrivateCrtKeyParameters)keyPair.Private;
-        }
+            ISigner sig = SignerUtilities.GetSigner("SHA1withRSA");
+            sig.Init(true, this.keyPair.Private);
 
+            sig.BlockUpdate(data, 0, data.Length);
+            byte[] signature = sig.GenerateSignature();
+            return signature;
+        }
     }
 }
