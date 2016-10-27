@@ -119,7 +119,7 @@ namespace makecrx
 
         private static string GetDefaultFileNameFor(DirectoryInfo targetDirInfo, string packageName, string extension)
         {
-            return String.Format("{0}\\{1}.{2}", targetDirInfo.FullName, packageName, extension);
+            return String.Format("{0}{3}{1}.{2}", targetDirInfo.FullName, packageName, extension, Path.DirectorySeparatorChar);
         }
     }
 }
