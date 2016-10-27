@@ -5,6 +5,8 @@ using Org.BouncyCastle.Crypto;
 using System.IO;
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.OpenSsl;
+using Org.BouncyCastle.Asn1.X509;
+using Org.BouncyCastle.X509;
 
 namespace makecrx
 {
@@ -48,6 +50,13 @@ namespace makecrx
                 var pemReader = new PemReader(textReader);
                 this.keyPair = (AsymmetricCipherKeyPair)pemReader.ReadObject();
             }
+        }
+
+        public byte[] GetPublicKey()
+        {
+            SubjectPublicKeyInfo publicKeyInfo = SubjectPublicKeyInfoFactory.CreateSubjectPublicKeyInfo(this.keyPair.Public);
+            byte[] serializedPublicBytes = publicKeyInfo.ToAsn1Object().GetDerEncoded();
+            return serializedPublicBytes;
         }
 
         private RsaPrivateCrtKeyParameters GetPrivateKey()
