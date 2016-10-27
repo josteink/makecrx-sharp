@@ -40,7 +40,8 @@ msbuild
 ````
 
 On Linux, you can just use [the officially supported scripts](https://developer.chrome.com/extensions/crx#scripts),
-but you might also want to try to build this with mono using `xbuild` instead of `msbuild`.
+but you might also want to try to build this with mono using `xbuild` instead of `msbuild` (it's tested and works on
+Ubuntu 16.04).
 
 ## disclaimer
 
