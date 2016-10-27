@@ -99,7 +99,7 @@ namespace makecrx
                 ZipUtil.Zip(sourceDirInfo, zipFile);
                 Console.WriteLine(" Done!");
 
-                Console.WriteLine("- Creating package '{0}'...", packageFileInfo.Name);
+                Console.Write("- Creating package '{0}'...", packageFileInfo.Name);
                 var packager = new CrxPackager();
                 packager.Package(zipFile, rsaUtil, packageFileInfo.FullName);
                 Console.WriteLine(" Done!");
