@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="CommandLineParser.cs" />
     <Compile Include="CrxPackager.cs" />
+    <Compile Include="FsUtil.cs" />
     <Compile Include="RsaUtil.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProgramArguments.cs" />
