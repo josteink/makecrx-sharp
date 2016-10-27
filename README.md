@@ -19,6 +19,13 @@ dir *.crx
 You can also specify a key using the `/key:key.pem` parameter. If key does not exist, a new one will be
 created. If no `/key:` parameter is provided, a default name will be used.
 
+## features and limitations
+
+This tool merely packages the content of an existing folder in compliance with the CRX Package format specification.
+
+It does not verify the correctness of the package-content itself. For such purposes you should use other existing tools
+like [web-ext](https://github.com/mozilla/web-ext) and [eslint](https://github.com/eslint/eslint).
+
 ## building
 
 Buliding on Windows should be as simple as:
