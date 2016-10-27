@@ -40,8 +40,16 @@ msbuild
 ````
 
 On Linux, you can just use [the officially supported scripts](https://developer.chrome.com/extensions/crx#scripts),
-but you might also want to try to build this with mono using `xbuild` instead of `msbuild` (it's tested and works on
-Ubuntu 16.04).
+but you might also want to try to build this with mono using `xbuild` instead of `msbuild`. The following is tested and works on
+Ubuntu 16.04:
+
+````
+git clone https://github.com/josteink/makecrx-sharp
+cd makecrx-sharp
+wget https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
+mono nuget.exe restore
+xbuild
+````
 
 ## disclaimer
 
