@@ -14,6 +14,7 @@ namespace makecrx
             Console.WriteLine("makecrx-sharp");
             Console.WriteLine("");
 
+
             // parse arguments
             var pa = new ProgramArguments();
             var success = CommandLine.Parser.ParseArgumentsWithUsage(args, pa);
@@ -21,6 +22,7 @@ namespace makecrx
             {
                 return 1;
             }
+
 
             // validate
             var sourceDirInfo = new DirectoryInfo(pa.SourceDir);
@@ -32,26 +34,45 @@ namespace makecrx
 
             try
             {
+                Console.WriteLine("Sanitizing parameters...");
 
                 // apply default values
                 if (string.IsNullOrWhiteSpace(pa.TargetDir))
                 {
                     pa.TargetDir = sourceDirInfo.Parent.FullName;
-                    Console.WriteLine("- No target-directory provided. Using: {0}", pa.TargetDir);
+                    Console.WriteLine("- No target-directory provided. Applying default.");
                 }
                 var targetDirInfo = new DirectoryInfo(pa.TargetDir);
 
                 if (string.IsNullOrWhiteSpace(pa.PackageName))
                 {
                     pa.PackageName = GetDefaultFileNameFor(sourceDirInfo, targetDirInfo, "crx");
-                    Console.WriteLine("- No package-name provided. Using:     '{0}'.", pa.PackageName);
+                    Console.WriteLine("- No package-name provided. Applying default.");
                 }
 
                 if (string.IsNullOrWhiteSpace(pa.KeyFile))
                 {
                     pa.KeyFile = GetDefaultFileNameFor(sourceDirInfo, targetDirInfo, "pem");
-                    Console.WriteLine("- No key-parameter provided. Using:    '{0}'.", pa.KeyFile);
+                    Console.WriteLine("- No key-parameter provided. Applying default.");
                 }
+
+                // where do we zip it?
+                var zipFile = GetDefaultFileNameFor(sourceDirInfo, targetDirInfo, "zip");
+                var packagePathInfo = new FileInfo(pa.PackageName);
+
+                // output configuration
+                Console.WriteLine("");
+                Console.WriteLine("Configuration:");
+                Console.WriteLine("- Source-directory: {0}", sourceDirInfo.FullName);
+                Console.WriteLine("- Target-directory: {0}", targetDirInfo.FullName);
+                Console.WriteLine("- Key-file:         {0}", pa.KeyFile);
+                Console.WriteLine("- Zip-file:         {0}", zipFile);
+                Console.WriteLine("- CRX package-file: {0}", packagePathInfo.FullName);
+                
+
+                // package it up!
+                Console.WriteLine("");
+                Console.WriteLine("Processing:");
 
                 // ensure file-system objects are in place
                 FsUtil.EnsureExists(targetDirInfo);
@@ -71,13 +92,10 @@ namespace makecrx
                     Console.WriteLine(" Done!");
                 }
 
-                // package it up!
-                var zipFile = GetDefaultFileNameFor(sourceDirInfo, targetDirInfo, "zip");
                 Console.Write("- Zipping package-contents...");
                 ZipUtil.Zip(sourceDirInfo, zipFile);
                 Console.WriteLine(" Done!");
 
-                var packagePathInfo = new FileInfo(pa.PackageName);
                 Console.WriteLine("- Creating package '{0}'...", packagePathInfo.Name);
                 var packager = new CrxPackager();
                 packager.Package(zipFile, rsaUtil, packagePathInfo.FullName);
