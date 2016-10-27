@@ -62,10 +62,20 @@ namespace makecrx
                     Console.WriteLine(" Done!");
                 }
 
+                // package it up!
+                var zipFile = GetDefaultFileNameFor(sourceDirInfo, "zip");
+                Console.Write("- Zipping package-contents...");
+                ZipUtil.Zip(sourceDirInfo, zipFile);
+                Console.WriteLine(" Done!");
+
                 var targetPathInfo = new FileInfo(pa.TargetPath);
                 Console.WriteLine("- Creating package '{0}'...", targetPathInfo.Name);
                 var packager = new CrxPackager();
-                packager.Package(pa.SourceDir, rsaUtil, pa.TargetPath);
+                packager.Package(zipFile, rsaUtil, pa.TargetPath);
+                Console.WriteLine(" Done!");
+
+                Console.WriteLine("");
+                Console.WriteLine("Package-file '{0}' created succesfully!", targetPathInfo.Name);
                 return 0;
             }
             catch (Exception ex)
