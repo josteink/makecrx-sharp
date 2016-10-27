@@ -6,6 +6,8 @@ WebExtension in `*.crx`-format written in C#.
 
 The packaged file is compliant with [CRX Package format v2](https://developer.chrome.com/extensions/crx).
 
+The canonical source for this project is https://github.com/josteink/makecrx-sharp.
+
 ## usage
 
 In its most simple form, the following should suffice:
@@ -39,3 +41,7 @@ msbuild
 
 On Linux, you can just use [the officially supported scripts](https://developer.chrome.com/extensions/crx#scripts),
 but you might also want to try to build this with mono using `xbuild` instead of `msbuild`.
+
+## disclaimer
+
+This tool is provided as is with no warranties.
