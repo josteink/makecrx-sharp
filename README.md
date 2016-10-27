@@ -10,7 +10,7 @@ The canonical source for this project is https://github.com/josteink/makecrx-sha
 
 ## usage
 
-In its most simple form, the following should suffice:
+In its most simple form, downloading the [latest release](https://github.com/josteink/makecrx-sharp/releases) and issuing the following commands should suffice:
 
 ````
 cd D:\Git\BrowserExtensionProject
